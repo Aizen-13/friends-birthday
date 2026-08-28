@@ -1,0 +1,639 @@
+:root {
+    --bg-dark: #07070a;
+    --accent-glow: rgba(180, 160, 255, 0.25);
+    --glass-bg: rgba(255, 255, 255, 0.04);
+    --glass-border: rgba(255, 255, 255, 0.12);
+    --glass-highlight: rgba(255, 255, 255, 0.25);
+    --text-main: #f3f3f6;
+    --text-muted: #a0a0b0;
+    --font-sans: 'Inter', sans-serif;
+    --font-display: 'Space Grotesk', sans-serif;
+    --font-serif: 'Cinzel', serif;
+    --font-hand: 'Caveat', cursive;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    user-select: none;
+}
+
+body,
+html {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background-color: var(--bg-dark);
+    color: var(--text-main);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+}
+
+#particle-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 1;
+    pointer-events: none;
+}
+
+/* Floating Audio Control */
+.floating-audio-btn {
+    position: fixed;
+    top: 24px;
+    right: 24px;
+    z-index: 99;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    cursor: pointer;
+}
+
+/* Glassmorphism System */
+.glass-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border);
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4), inset 0 1px 0 var(--glass-highlight);
+    border-radius: 24px;
+    padding: 36px;
+    color: var(--text-main);
+}
+
+.glass-frame {
+    background: rgba(255, 255, 255, 0.02);
+    backdrop-filter: blur(12px);
+    border: 1px solid var(--glass-border);
+    border-radius: 28px;
+    padding: 12px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+}
+
+.glass-btn {
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--glass-border);
+    color: #fff;
+    padding: 14px 32px;
+    border-radius: 100px;
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 0.95rem;
+    letter-spacing: 1px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.glass-btn:hover {
+    background: rgba(255, 255, 255, 0.18);
+    border-color: rgba(255, 255, 255, 0.4);
+    box-shadow: 0 0 25px rgba(255, 255, 255, 0.2);
+    transform: translateY(-2px);
+}
+
+.glass-btn:active {
+    transform: scale(0.96);
+}
+
+/* Scene Framework */
+#app {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+}
+
+.scene {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.8s ease, visibility 0.8s ease;
+    padding: 24px;
+}
+
+.scene.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.center-card {
+    text-align: center;
+    max-width: 480px;
+    width: 100%;
+}
+
+/* SCENE 1 */
+.tagline {
+    font-size: 0.8rem;
+    letter-spacing: 3px;
+    color: var(--text-muted);
+    margin-bottom: 12px;
+}
+
+.hero-name {
+    font-family: var(--font-serif);
+    font-size: 2.8rem;
+    letter-spacing: 2px;
+    margin-bottom: 18px;
+    background: linear-gradient(135deg, #fff 30%, #a5b4fc 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.subtitle {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    margin-bottom: 8px;
+}
+
+.fade-in-text-delay {
+    color: var(--text-main);
+    font-size: 1rem;
+    margin-bottom: 28px;
+}
+
+/* SCENE 2 - AIRLINES */
+.flight-container {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.flight-info {
+    position: absolute;
+    top: 10%;
+    text-align: center;
+    padding: 16px 32px;
+}
+
+.airline-tag {
+    font-size: 0.75rem;
+    letter-spacing: 2px;
+    color: #a5b4fc;
+}
+
+.airplane-wrapper {
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    color: #fff;
+}
+
+.airplane-icon {
+    width: 100%;
+    height: 100%;
+    transform: rotate(45deg);
+    filter: drop-shadow(0 0 12px rgba(255, 255, 255, 0.8));
+}
+
+.crash-impact {
+    position: absolute;
+    opacity: 0;
+    transform: scale(0.2);
+    pointer-events: none;
+}
+
+.pop-text {
+    font-family: var(--font-display);
+    font-size: 3rem;
+    font-weight: 900;
+    color: #f43f5e;
+    text-shadow: 0 0 20px rgba(244, 63, 94, 0.8);
+}
+
+/* SCENE 3 - REVEAL */
+.luminous-container {
+    position: relative;
+    display: inline-block;
+    overflow: hidden;
+}
+
+.massive-title {
+    font-family: var(--font-serif);
+    font-size: clamp(3rem, 10vw, 6.5rem);
+    font-weight: 900;
+    letter-spacing: 6px;
+    line-height: 1.1;
+    text-align: center;
+    background: linear-gradient(180deg, #ffffff 0%, #cbd5e1 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 0 40px rgba(255, 255, 255, 0.2);
+}
+
+.massive-title span {
+    display: block;
+}
+
+.light-sweep {
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 60%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.6), transparent);
+    transform: skewX(-25deg);
+    pointer-events: none;
+}
+
+.reveal-subtitles {
+    margin-top: 24px;
+    text-align: center;
+}
+
+.happy-bday-text {
+    font-family: var(--font-display);
+    letter-spacing: 4px;
+    font-size: 1.2rem;
+    color: var(--text-muted);
+}
+
+.date-badge {
+    font-size: 0.9rem;
+    color: #a5b4fc;
+    margin-top: 6px;
+}
+
+/* SCENE 4 - TAJ MAHAL PHOTO */
+.photo-frame-container {
+    max-width: 800px;
+    width: 100%;
+    max-height: 80vh;
+}
+
+.image-wrapper {
+    position: relative;
+    width: 100%;
+    height: 500px;
+    overflow: hidden;
+}
+
+.image-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 20px;
+    transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.photo-glass-overlay {
+    position: absolute;
+    bottom: 24px;
+    left: 24px;
+    right: 24px;
+}
+
+.overlay-card {
+    padding: 20px 28px;
+}
+
+.badge {
+    font-size: 0.7rem;
+    letter-spacing: 2px;
+    background: rgba(165, 180, 252, 0.2);
+    color: #a5b4fc;
+    padding: 4px 10px;
+    border-radius: 20px;
+}
+
+/* SCENE 5 - STATS EXE */
+.dashboard-container {
+    max-width: 650px;
+    width: 100%;
+}
+
+.dash-header {
+    text-align: center;
+    margin-bottom: 20px;
+    padding: 20px;
+}
+
+.dash-header h2 {
+    font-family: var(--font-display);
+    letter-spacing: 2px;
+}
+
+.status-indicator {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    letter-spacing: 1px;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 20px;
+}
+
+.stat-card h3 {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+}
+
+.stat-val {
+    font-size: 1.8rem;
+    font-family: var(--font-display);
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.progress-bar {
+    width: 100%;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 2px;
+    overflow: hidden;
+    margin-bottom: 8px;
+}
+
+.progress-bar .fill {
+    width: 0%;
+    height: 100%;
+    background: linear-gradient(90deg, #818cf8, #c084fc);
+    transition: width 1.5s ease;
+}
+
+.stat-status {
+    font-size: 0.7rem;
+    color: var(--text-muted);
+}
+
+.warning-card {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    border-color: rgba(244, 63, 94, 0.4);
+    background: rgba(244, 63, 94, 0.05);
+    padding: 16px 24px;
+}
+
+/* SCENE 6 - HEIGHT ROAST */
+.info-tag {
+    font-size: 0.75rem;
+    letter-spacing: 2px;
+    color: #f43f5e;
+}
+
+.roast-card h2 {
+    font-family: var(--font-serif);
+    margin: 10px 0 20px;
+}
+
+.roast-list {
+    list-style: none;
+    text-align: left;
+    margin-bottom: 24px;
+    background: rgba(0, 0, 0, 0.2);
+    padding: 16px 20px;
+    border-radius: 12px;
+}
+
+.roast-list li {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+    font-size: 0.95rem;
+}
+
+.update-box {
+    margin-bottom: 20px;
+}
+
+.update-title {
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+    margin-bottom: 4px;
+}
+
+.update-step {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin-bottom: 10px;
+}
+
+.update-bar .fill-bar {
+    width: 0%;
+    height: 100%;
+    background: #f43f5e;
+    transition: width 2s ease;
+}
+
+.error-msg {
+    color: #f43f5e;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 0.85rem;
+    margin-top: 10px;
+}
+
+.roast-footer {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin-bottom: 20px;
+}
+
+/* SCENE 7 & 8 - PORTRAIT */
+.portrait-container {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+    max-width: 900px;
+    width: 100%;
+}
+
+.portrait-frame {
+    width: 320px;
+    height: 420px;
+    flex-shrink: 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.portrait-frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 20px;
+}
+
+.portrait-text-content {
+    flex-grow: 1;
+}
+
+.soft-quote {
+    font-size: 1.4rem;
+    font-weight: 500;
+    margin-bottom: 4px;
+}
+
+.soft-quote-sub {
+    color: var(--text-muted);
+    font-size: 1rem;
+    margin-bottom: 24px;
+}
+
+.memory-card {
+    margin-bottom: 24px;
+}
+
+.memory-card h3 {
+    font-family: var(--font-serif);
+    margin-bottom: 10px;
+}
+
+.memory-card p {
+    color: var(--text-muted);
+    line-height: 1.6;
+}
+
+/* SCENE 9 - LETTER */
+.envelope-card {
+    cursor: pointer;
+    padding: 48px;
+}
+
+.envelope-icon {
+    font-size: 3rem;
+    margin-bottom: 16px;
+}
+
+.letter-card {
+    max-width: 550px;
+    width: 100%;
+    text-align: left;
+    max-height: 80vh;
+    overflow-y: auto;
+}
+
+.letter-content {
+    font-family: var(--font-hand);
+    font-size: 1.6rem;
+    line-height: 1.8;
+    color: #e2e8f0;
+    white-space: pre-line;
+    margin-bottom: 24px;
+}
+
+/* SCENE 10 - SURPRISE */
+.gift-box {
+    font-size: 4rem;
+    margin: 20px 0;
+    cursor: pointer;
+    animation: pulse 2s infinite ease-in-out;
+}
+
+.final-hbday {
+    font-family: var(--font-display);
+    letter-spacing: 4px;
+    font-size: 1rem;
+    color: var(--text-muted);
+}
+
+.interactive-name {
+    cursor: pointer;
+    margin: 10px 0;
+}
+
+.final-badges {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin: 20px 0;
+}
+
+.pill {
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid var(--glass-border);
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+}
+
+.final-wish {
+    font-family: var(--font-serif);
+    margin-bottom: 6px;
+}
+
+.final-sub {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+}
+
+.secret-card {
+    margin-top: 30px;
+    border-color: rgba(244, 63, 94, 0.5);
+}
+
+.secret-tag {
+    font-size: 0.7rem;
+    color: #f43f5e;
+    letter-spacing: 2px;
+}
+
+.error-dead {
+    color: #f43f5e;
+    font-weight: bold;
+    margin: 10px 0;
+}
+
+.hidden {
+    display: none !important;
+}
+
+@keyframes pulse {
+
+    0%,
+    100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.1);
+    }
+}
+
+/* Responsive Scaling */
+@media (max-width: 768px) {
+    .portrait-container {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .portrait-frame {
+        width: 100%;
+        height: 320px;
+    }
+
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .massive-title {
+        font-size: 3.2rem;
+    }
+}

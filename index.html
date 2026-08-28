@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Yogitha Sri — A Birthday Experience</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Caveat:wght@600&family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@400;600;700&family=Cinzel:wght@700;900&display=swap"
+    rel="stylesheet">
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <audio id="bg-music" loop src="C:\Users\kanch\OneDrive\Desktop\mahi\assets\the_mountain-happy-birthday-508020.mp3"
+    preload="auto"></audio>
+
+  <button id="music-toggle" class="glass-btn floating-audio-btn" aria-label="Toggle Music">
+    <span class="audio-icon">🔇</span>
+  </button>
+
+  <canvas id="particle-canvas"></canvas>
+
+  <main id="app">
+
+    <section id="scene-1" class="scene active">
+      <div class="glass-card main-card center-card">
+        <p class="tagline">A LITTLE SOMETHING FOR...</p>
+        <h1 class="hero-name glow-text">YOGITHA SRI</h1>
+        <p class="subtitle fade-in-text">I could've just sent you a birthday text...</p>
+        <p class="subtitle fade-in-text-delay">...but where's the fun in that?</p>
+        <button id="enter-btn" class="glass-btn primary-btn">
+          <span>ENTER ✦</span>
+          <div class="ripple"></div>
+        </button>
+      </div>
+    </section>
+
+    <section id="scene-2" class="scene">
+      <div class="flight-container">
+        <div class="flight-info glass-card">
+          <span class="airline-tag">YOGITHA AIRLINES</span>
+          <p class="destination">Destination: Birthday 🎂</p>
+        </div>
+        <div class="airplane-wrapper" id="airplane">
+          <svg class="airplane-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+          <div class="engine-trail"></div>
+        </div>
+        <div class="crash-impact" id="crash-impact">
+          <div class="pop-text">POP! 💥</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SCENE 3: THE BIG REVEAL -->
+    <section id="scene-3" class="scene">
+      <div class="reveal-wrapper">
+        <div class="reveal-subtitles">
+          <p class="happy-bday-text">HAPPY BIRTHDAY</p>
+        </div>
+        <div class="luminous-container">
+          <h1 id="hero-reveal-title" class="massive-title">
+            <span class="part-1">YOGITHA</span>
+            <span class="part-2">SRI</span>
+          </h1>
+          <div class="light-sweep"></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="scene-4" class="scene">
+      <div class="photo-frame-container">
+        <div class="image-wrapper glass-frame">
+          <img id="taj-photo" src="" alt="Yogitha Sri Taj Mahal">
+          <div class="photo-glass-overlay">
+            <div class="glass-card overlay-card">
+              <span class="badge">ARRIVED</span>
+              <h2>HAPPY BIRTHDAY,<br>YOGITHA SRI</h2>
+              <p>September 2 — Your day.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="scene-5" class="scene">
+      <div class="dashboard-container">
+        <div class="dash-header glass-card">
+          <h2>YOGITHA SRI.exe</h2>
+          <span class="status-indicator">OFFICIAL PERSONALITY ANALYSIS</span>
+        </div>
+        <div class="stats-grid">
+          <div class="stat-card glass-card" id="stat-height">
+            <h3>HEIGHT</h3>
+            <div class="stat-val">5'0"</div>
+            <div class="progress-bar">
+              <div class="fill"></div>
+            </div>
+            <p class="stat-status">Analyzing...</p>
+          </div>
+          <div class="stat-card glass-card" id="stat-attitude">
+            <h3>ATTITUDE</h3>
+            <div class="stat-val">∞</div>
+            <div class="progress-bar">
+              <div class="fill"></div>
+            </div>
+            <p class="stat-status">Analyzing...</p>
+          </div>
+          <div class="stat-card glass-card" id="stat-beauty">
+            <h3>BEAUTY LEVEL</h3>
+            <div class="stat-val" id="beauty-counter">0</div>
+            <div class="progress-bar">
+              <div class="fill"></div>
+            </div>
+            <p class="stat-status">Analyzing...</p>
+          </div>
+          <div class="stat-card glass-card" id="stat-confidence">
+            <h3>CONFIDENCE</h3>
+            <div class="stat-val">1000%</div>
+            <div class="progress-bar">
+              <div class="fill"></div>
+            </div>
+            <p class="stat-status">Analyzing...</p>
+          </div>
+        </div>
+        <div id="system-warning" class="warning-card glass-card hidden">
+          <span class="warn-icon">⚠️</span>
+          <div>
+            <h4>SYSTEM WARNING</h4>
+            <p>ATTITUDE LEVEL EXCEEDS AVAILABLE HEIGHT.</p>
+            <small>Height remains suspiciously unchanged.</small>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="scene-6" class="scene">
+      <div class="glass-card roast-card center-card">
+        <span class="info-tag">IMPORTANT INFORMATION</span>
+        <h2>YOGITHA SRI</h2>
+        <ul class="roast-list">
+          <li><span>Height:</span> <strong>5'0"</strong></li>
+          <li><span>Attitude:</span> <strong>∞</strong></li>
+          <li><span>Beauty:</span> <strong>∞</strong></li>
+        </ul>
+
+        <div class="update-box">
+          <p class="update-title">HEIGHT EXPANSION PACK</p>
+          <p class="update-step">Current: 5'0" ➔ Downloading 5'1"...</p>
+          <div class="progress-bar update-bar">
+            <div class="fill-bar" id="roast-progress"></div>
+          </div>
+          <div id="error-404" class="error-msg hidden">ERROR 404 — HEIGHT NOT FOUND</div>
+        </div>
+        <p class="roast-footer">Don't worry, you'll reach the top shelf someday. 📦</p>
+        <button id="roast-next-btn" class="glass-btn secondary-btn hidden">Continue... 😂</button>
+      </div>
+    </section>
+
+    <section id="scene-7" class="scene">
+      <div class="portrait-container">
+        <div class="portrait-frame glass-frame tilt-card">
+          <img id="portrait-photo" src="" alt="Yogitha Sri">
+          <div class="portrait-reflection"></div>
+        </div>
+        <div class="portrait-text-content">
+          <p class="soft-quote">"Okay... enough bullying. 😂"</p>
+          <p class="soft-quote-sub">"Because honestly... you deserve a beautiful birthday."</p>
+
+          <div class="memory-card glass-card tilt-card">
+            <h3>YOGITHA SRI</h3>
+            <p>A little chaotic.<br>A little annoying.<br>Very short.<br>But somehow impossible not to appreciate. 😂
+            </p>
+          </div>
+          <button id="memory-next-btn" class="glass-btn primary-btn">A Message For You ✉️</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="scene-9" class="scene">
+      <div class="envelope-wrapper center-card">
+        <div id="envelope" class="glass-card envelope-card">
+          <div class="envelope-icon">✉️</div>
+          <h2>A MESSAGE FOR YOU</h2>
+          <button id="open-letter-btn" class="glass-btn primary-btn">OPEN MESSAGE</button>
+        </div>
+
+        <div id="letter-modal" class="glass-card letter-card hidden">
+          <div class="letter-content" id="letter-text-target">
+          </div>
+          <button id="close-letter-btn" class="glass-btn secondary-btn hidden">One Last Thing... 🎁</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="scene-10" class="scene">
+      <div id="surprise-pre" class="center-card glass-card">
+        <h2>Wait...</h2>
+        <p>Did you really think that was everything?</p>
+        <div class="gift-box" id="gift-trigger">🎁</div>
+        <button id="open-gift-btn" class="glass-btn primary-btn">OPEN 🎁</button>
+      </div>
+
+      <div id="surprise-main" class="center-card hidden">
+        <h2 class="final-hbday">HAPPY BIRTHDAY</h2>
+        <h1 id="easter-egg-name" class="massive-title interactive-name">YOGITHA SRI</h1>
+        <div class="final-badges">
+          <span class="pill">∞ Beauty</span>
+          <span class="pill">∞ Attitude</span>
+          <span class="pill">5'0" of pure chaos 😂</span>
+        </div>
+        <h3 class="final-wish">Have the best birthday ever. ❤️</h3>
+        <p class="final-sub">Stay exactly the way you are.</p>
+
+        <div id="easter-egg-modal" class="glass-card secret-card hidden">
+          <span class="secret-tag">SECRET MODE 🔓</span>
+          <h4>HEIGHT UPDATE AVAILABLE</h4>
+          <p class="update-seq">5'0" ➔ 5'0.1" ➔ 5'0.2"</p>
+          <div class="error-dead">ERROR 404: HEIGHT NOT FOUND 💀</div>
+          <p class="sys-down">SYSTEM SHUTTING DOWN...</p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <script src="script.js"></script>
+</body>
+
+</html>
