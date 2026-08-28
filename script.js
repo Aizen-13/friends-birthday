@@ -6,8 +6,8 @@
 const CONFIG = {
     // === PLACE YOUR IMAGE PATHS HERE ===
     //photo1: "C:\\Users\\kanch\\OneDrive\\Desktop\\mahi\\assets\\photo1.jpg", // Portrait Photo of Yogitha
-    photo1: "C:\\Users\\kanch\\OneDrive\\Desktop\\mahi\\assets\\photo2.jpg", // Taj Mahal Photo
-    photo2: "C:\\Users\\kanch\\OneDrive\\Desktop\\mahi\\assets\\photo1.jpg",
+    photo1: "photo2.jpg", // Taj Mahal Photo
+    photo2: "C:photo1.jpg",
 
 
     // Personal Letter Content
