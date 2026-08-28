@@ -3,11 +3,11 @@
  * Main Configuration & Timeline Engine
  */
 
-const CONFIG = {
-    // === PLACE YOUR IMAGE PATHS HERE ===
-    //photo1: "C:\\Users\\kanch\\OneDrive\\Desktop\\mahi\\assets\\photo1.jpg", // Portrait Photo of Yogitha
-    photo1: "photo2.jpg", // Taj Mahal Photo
-    photo2: "photo1.jpg",
+
+  const CONFIG = {
+  // === PLACE YOUR IMAGE PATHS HERE ===
+  photo1: "photo1.jpg", // Portrait photo
+  photo2: "photo2.jpg", // Taj Mahal photo
 
 
     // Personal Letter Content
@@ -42,8 +42,8 @@ const musicBtn = document.getElementById("music-toggle");
 // Initialize Setup
 document.addEventListener("DOMContentLoaded", () => {
     // Inject Image Sources
-    document.getElementById("portrait-photo").src = CONFIG.photo1;
-    document.getElementById("taj-photo").src = CONFIG.photo2;
+ document.getElementById('taj-photo').src = CONFIG.photo2;
+document.getElementById('portrait-photo').src = CONFIG.photo1;
 
     initParticles();
     setupEventListeners();
